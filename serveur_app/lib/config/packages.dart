@@ -1,0 +1,1 @@
+export 'package:sidebarx/sidebarx.dart';

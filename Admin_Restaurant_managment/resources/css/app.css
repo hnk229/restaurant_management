@@ -2,3 +2,13 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 @source "../views";
+
+body{
+    margin: 0;
+    font-family: 'poppins', sans-serif;
+    background-color: #F4F4F4;
+}
+
+#app{
+    /* background-color: #F4F4F4; */
+}

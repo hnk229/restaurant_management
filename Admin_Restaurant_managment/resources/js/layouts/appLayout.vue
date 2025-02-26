@@ -1,26 +1,18 @@
 <script setup>
 import { ref } from 'vue';
 import SideBar from '../components/sideBar/sideBar.vue';
-const links = ref([
-    { title: 'Dashboard', icon: 'mdi-view-dashboard', route: 'dashboard' },
-    { title: 'Users', icon: 'mdi-account-group', route: 'user' },
-    // { title: 'Permissions', icon: 'mdi-lock', to: '/permissions' },
-    // { title: 'Settings', icon: 'mdi-cog', to: '/settings' },
-]);
+import AppBar from '../components/appBar/appBar.vue';
+
 
 </script>
 <template>
-    <v-layout class="rounded rounded-sm">
-        <v-app-bar
-        title="Application bar"
-        elevation="0"
-        
-        >
-        </v-app-bar>
+    <v-layout>
+        <AppBar />
         <SideBar />
+        <v-main
+            class="d-flex"
 
-
-        <v-main class="d-flex align-center justify-center" style="min-height: 300px;">
+            >
             <router-view ></router-view>
         </v-main>
     </v-layout>

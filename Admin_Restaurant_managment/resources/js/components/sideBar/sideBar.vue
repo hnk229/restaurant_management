@@ -2,8 +2,9 @@
     import { ref } from 'vue';
 const links = ref([
     { title: 'Dashboard', icon: 'mdi-view-dashboard', route: 'dashboard' },
+    { title: 'Categories', icon: 'mdi-shape', route: 'categories' },
     { title: 'Users', icon: 'mdi-account-group', route: 'user' },
-    // { title: 'Permissions', icon: 'mdi-lock', to: '/permissions' },
+    // { title: 'Products', icon: 'mdi-package-variant-closed', route: 'products' },
     // { title: 'Settings', icon: 'mdi-cog', to: '/settings' },
 ]);
 </script>
@@ -11,10 +12,9 @@ const links = ref([
 <template>
     <v-navigation-drawer
         floating
-        class="pt-3 mx-3 my-3 rounded-lg elevation-2"
+        class="pt-3"
         color="white"
         model-value
-        elevation="5"
       >
 
         <v-list>
@@ -23,6 +23,8 @@ const links = ref([
                 :key="index"
                 :to="{name: route}"
                 :prepend-icon="icon"
+                color="primary"
+                class="mx-4 rounded-lg my-1"
             >
             {{ title }}
             </v-list-item>

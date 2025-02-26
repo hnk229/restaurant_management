@@ -1,15 +1,4 @@
-<!-- <template>
-    <header>
-        <nav>
-            <router-link to="/">Dashboard</router-link>
-            <router-link to="/user">User</router-link>
-        </nav>
-    </header>
-    <main>
 
-        <router-view></router-view>
-    </main>
-</template> -->
 <template>
     <RouterView />
 </template>

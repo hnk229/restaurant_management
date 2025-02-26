@@ -7,6 +7,6 @@
         <title>Laravel</title>
         @vite(['resources/js/app.js','resources/css/app.css'])
     </head>
-    <body id="dashboard">
+    <body id="app">
     </body>
 </html>

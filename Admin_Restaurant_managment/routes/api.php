@@ -6,10 +6,13 @@ use App\Http\Controllers\CategoriesController;
 
 
 
-Route::post('/category/add', [CategoriesController::class, 'store']);
-Route::get('/category', [CategoriesController::class, 'index']);
+// Route::post('/category/add', [CategoriesController::class, 'store']);
+// Route::get('/category', [CategoriesController::class, 'index']);
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
+
+Route::apiResource('categories', CategoriesController::class);
 

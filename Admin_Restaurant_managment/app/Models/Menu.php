@@ -9,7 +9,7 @@ class Menu extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'prix', 'description', 'image', 'categorie_id'];
+    protected $fillable = ['name', 'prix', 'description', 'image', 'categorie_id'];
     protected $casts = [
         'prix' => 'float'
     ];

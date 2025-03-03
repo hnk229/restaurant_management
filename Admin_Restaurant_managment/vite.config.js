@@ -12,4 +12,8 @@ export default defineConfig({
             refresh: true,
         }),
     ],
+    build: {
+        manifest: true, // Ajoute cette ligne pour générer le fichier manifest.json
+        outDir: 'public/build', // Définit le dossier de sortie pour les fichiers compilés
+    },
 });

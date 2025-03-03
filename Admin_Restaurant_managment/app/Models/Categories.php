@@ -8,7 +8,7 @@ class Categories extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nom', 'image'];
+    protected $fillable = ['name', 'image'];
     public function menu()
     {
         return $this->hasMany(Menu::class);

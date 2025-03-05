@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->string('prenom');
+            $table->string('email')->unique();
             $table->enum('role', ['serveur', 'cuisinier', 'admin']);
-            $table->string('username')->unique();
-            $table->string('mot_de_passe');
+            $table->string('username')->nullable()->unique();
+            $table->string('password');
             $table->timestamps();
         });
 

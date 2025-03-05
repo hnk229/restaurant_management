@@ -89,7 +89,9 @@ onMounted(async () => {
         id: cat.id,
         name: cat.name,
         image: cat.image || '', // Valeur par défaut si image est undefined
+        user: cat.user ? `${cat.user.prenom} ${cat.user.nom}` : 'Utilisateur inconnu'
       })).filter(cat => cat); // Filtrer les éléments undefined
+      console.log('Catégorie get: ', categories.value)
     } else {
       throw new Error('Réponse invalide de l\'API');
     }

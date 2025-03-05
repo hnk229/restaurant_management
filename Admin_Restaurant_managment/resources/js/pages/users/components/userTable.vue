@@ -1,9 +1,14 @@
-<template>
-    <v-data-table :headers="headers" :items="categories" :search="search"
-        :sort-by="[{ key: 'name', order: 'asc' }]" class="w-100 px-3"
-        itemsPerPageText ="Eléments par page"
-        >
 
+<template>
+    <v-data-table :headers="headers" :items="users" :search="search"
+        :sort-by="[{ key: 'nom', order: 'asc' }]" class="w-100 px-3"
+        itemsPerPageText ="Eléments par page"
+        :footer-props="{
+            showFirstLastPage: true,
+            itemsPerPageOptions: [5, 10, 20],
+            showCurrentPage: true
+        }"
+        >
         <!-- Personnalisation de l'en-tête pour chaque colonne -->
         <!-- <template v-slot:header.name="{ header }">
             {{ header.name.toUpperCase() }}
@@ -19,7 +24,7 @@
                 <v-text-field
                     :value="search"
                     @input="$emit('update:search', $event.target.value)"
-                    label="Rechercher une catégorie"
+                    label="Rechercher un utilisateur"
                     append-inner-icon="mdi-close"
                     density="compact"
                     variant="outlined"
@@ -32,24 +37,19 @@
                 <!-- Bouton pour ajouter un nouvel élément -->
                 <v-dialog v-model="dialog" max-width="35rem">
                     <template v-slot:activator="{ props }">
-                        <v-btn class="mx-4 rounded-lg my-1" color="primary" v-bind="props" prepend-icon="mdi-plus"
+                        <v-btn class="mx-4 rounded-lg my-1 transition delay-150 duration-150 ease-in-out hover:-translate-y-1 hover:scale-110"
+                            color="primary" v-bind="props" prepend-icon="mdi-plus"
                             active>
-                            Add
+                            <span class=" font-bold">Add</span>
                         </v-btn>
                     </template>
                     <!-- Formulaire pour ajouter une nouvelle catégorie -->
-                    <CategoryCreateDialog
+                    <UserCreateDialog
                     v-model="dialog"
                     @save="$emit('save', $event)"
                     />
                 </v-dialog>
             </v-toolbar>
-        </template>
-
-        <!-- Colonne pour l'image -->
-        <template v-slot:item.image="{ item }"> <!-- eslint-disable-line vue/valid-v-slot -->
-            <v-img v-if="item && item.image" :src="item.image" alt="Image" width="50" height="50" />
-            <span v-else>Aucune image</span>
         </template>
 
         <!-- Actions pour chaque ligne (éditer et supprimer) -->
@@ -76,49 +76,27 @@
         <template v-slot:no-data>
       <div class="text-center">
         <v-icon size="100" color="grey">mdi-database-remove</v-icon>
-        <p class="mt-3">Aucune catégorie disponible</p>
+        <p class="mt-3">Aucun utilisateur disponible</p>
       </div>
     </template>
     </v-data-table>
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'; // Importer ref et defineProps de Vue
-import CategoryCreateDialog from './CategoryCreateDialog.vue';
+    import { ref, defineProps } from 'vue'; // Importer ref et defineProps de Vue
+    import UserCreateDialog from './userCreateDialog.vue';
 
-defineProps({
-    categories: Array,
-    search: String,
-});
-const dialog = ref(false); // Définir dialog comme une variable réactive
+    defineProps({
+        users: Array,
+        search: String,
+    });
+    const dialog = ref(false); // Définir dialog comme une variable réactive
 
-const headers = [
-    { title: 'Nom', key: 'name', align: 'start', sortable: true },
-    { title: 'Image', key: 'image', align: 'start', sortable: false },
-    { title: 'Ajouté par', key: 'user', align: 'start', sortable: false },
-    { title: ' ', key: 'actions', sortable: false },
-];
+    const headers = [
+        { title: 'NOM & PRENOM', key: 'nom', align: 'start', sortable: true },
+        { title: 'EMAIL', key: 'email', align: 'start', sortable: false },
+        { title: 'USERNAME', key: 'username', align: 'start', sortable: false },
+        { title: 'ROLE', key: 'role', align: 'start', sortable: false },
+        { title: ' ', key: 'actions', sortable: false },
+    ];
 </script>
-
-<style scoped>
-.tab-title {
-    font-size: 2rem;
-}
-
-.custom-icon {
-  border-radius: 50%; /* Rendre l'icône ronde avec un fond */
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* Couleur d'arrière-plan avec opacité réduite pour les différentes couleurs */
-.custom-icon.v-icon--primary {
-  background-color: rgba(255, 111, 97, 0.5); /* primary #FF6F61 */
-}
-
-.custom-icon.v-icon--warning {
-  background-color: rgba(17, 138, 178, 0.8); /* warning #118AB2 */
-}
-
-</style>

@@ -1,4 +1,7 @@
 import axios from "axios";
+import { useAuthStore } from "./authStore";
+
+// const authStore = useAuthStore();
 
 const axiosInstance = axios.create(
     {
@@ -6,8 +9,20 @@ const axiosInstance = axios.create(
         headers: {
             'Accept': 'application/json',
             'Content-Type': 'multipart/form-data',
+
         }
     }
+);
+// Intercepteur pour insérer le token avant chaque requête
+axiosInstance.interceptors.request.use(
+    (config) => {
+        const authStore = useAuthStore();
+        if (authStore.token) {
+            config.headers.Authorization = `Bearer ${authStore.token}`;
+        }
+        return config;
+    },
+    (error) => Promise.reject(error)
 );
 
 export default function useApi(){

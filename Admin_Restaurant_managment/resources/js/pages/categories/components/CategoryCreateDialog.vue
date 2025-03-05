@@ -1,6 +1,6 @@
 <template>
     <v-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" max-width="30rem">
-        <v-card>
+        <v-card class=" px-4 py-4 rounded-lg">
             <v-card-title
                 class="text-h4"
                 color="info"
@@ -9,13 +9,13 @@
             <v-card-text>
                 <div class="justify-center px-6">
                     <!-- Avatar circulaire avec aperçu de l'image -->
-                    <div class="d-flex flex-row align-center">
-                       <v-avatar size="100">
+                    <div class="d-flex flex-row align-center ">
+                       <v-avatar size="100" color="primary" class="mr-4">
                            <v-img v-if="previewImage" :src="previewImage" />
                            <v-icon v-else size="50">mdi-camera</v-icon>
                        </v-avatar>
 
-                       <v-btn class="" color="primary" @click="triggerFileInput">
+                       <v-btn class="text-bold" variant="plain" color="primary" @click="triggerFileInput">
                            Choisir image
                        </v-btn>
 

@@ -6,7 +6,8 @@ use App\Models\Categories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class CategoriesController extends Controller
 {
@@ -15,9 +16,15 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-
-        $categories = Categories::all();
-        return response()->json($categories);
+        try {
+            //code...
+            $categories = Categories::with('user:id,nom,prenom')->get();
+            return response()->json($categories);
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => $e->getMessage(),
+            ], 500);
+        }
     }
 
     /**
@@ -45,6 +52,10 @@ class CategoriesController extends Controller
                 return response()->json(['errors' => $validator->errors()], 422);
             }
 
+            if (Auth::user()->role !== 'admin') {
+                return response()->json(['message' => 'Seuls les administrateurs peuvent ajouter des catégories'], 403);
+            }
+
             $imagePath = null;
             if ($request->hasFile('image')) {
                 $fileName = time() . '_' . uniqid() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -54,6 +65,7 @@ class CategoriesController extends Controller
             $categorie = Categories::create([
                 'name' => $request->name,
                 'image' => $imagePath ? asset('storage/' . $imagePath) : null,
+                'user_id' => Auth::id(),
             ]);
 
             return response()->json($categorie, 201);
@@ -101,6 +113,9 @@ class CategoriesController extends Controller
 
             if ($validator->fails()) {
                 return response()->json(['errors' => $validator->errors()], 422);
+            }
+            if (Auth::user()->role !== 'admin') {
+                return response()->json(['message' => 'Seuls les administrateurs peuvent ajouter des catégories'], 403);
             }
 
             if ($request->has('name')) {

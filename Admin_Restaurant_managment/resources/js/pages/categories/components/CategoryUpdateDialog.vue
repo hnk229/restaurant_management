@@ -1,17 +1,17 @@
 <template>
     <v-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" max-width="30rem">
-      <v-card>
+      <v-card class="px-4 py-4 rounded-lg">
         <v-card-title class="text-h4">Modifier la catégorie</v-card-title>
         <v-divider></v-divider>
         <v-card-text>
             <div class="justify-center px-6">
                 <div class="d-flex flex-row align-center">
 
-                    <v-avatar size="100">
+                    <v-avatar size="100" color="primary" class="mr-4">
                         <v-img v-if="previewImage" :src="previewImage" />
                         <v-icon v-else size="50">mdi-camera</v-icon>
                     </v-avatar>
-                    <v-btn class="" color="primary" @click="triggerFileInput">
+                    <v-btn class="" variant="plain" color="primary" @click="triggerFileInput">
                         Choisir image
                     </v-btn>
                     <input
@@ -77,7 +77,7 @@ const triggerFileInput = () => {
   watch(() => props.item, (newItem) => {
     item.value = { ...newItem };
     // previewImage.value = URL.createObjectURL(newItem.iconFile);
-    previewImage.value = typeof newItem.iconFile === "string" ? newItem.iconFile : null;
+
   });
 
   // Fonction pour gérer le téléversement de fichiers

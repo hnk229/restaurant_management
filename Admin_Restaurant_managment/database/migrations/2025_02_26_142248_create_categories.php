@@ -14,6 +14,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->unique();
             $table->string('image')->nullable(); // Champ pour l'image
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null'); // Définition unique de user_id
             $table->timestamps();
         });
     }
